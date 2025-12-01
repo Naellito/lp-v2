@@ -106,8 +106,8 @@ export function Chat({ messages, onSendMessage, chatType, isOpen, onToggle, myRo
             exit={{ x: 400, opacity: 0 }}
             transition={{ type: 'spring', damping: 25 }}
             className={`fixed ${getPanelPosition()} bottom-0 sm:bottom-24 left-0 sm:left-auto right-0 sm:right-auto z-40 
-                       w-full sm:w-96 h-screen sm:h-[500px] 
-                       sm:rounded-2xl border-t-4 sm:border-4 ${getBorderColor()} 
+                       w-full sm:w-96 h-[60vh] sm:h-[500px] max-h-[600px]
+                       rounded-t-3xl sm:rounded-2xl border-t-4 sm:border-4 ${getBorderColor()} 
                        bg-gradient-to-br ${getChatColor()} backdrop-blur-xl shadow-2xl flex flex-col overflow-hidden`}
           >
             {/* Header */}
