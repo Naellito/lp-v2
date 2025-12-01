@@ -154,20 +154,20 @@ export function Home() {
               Marwa x Nina
             </motion.span>
             
-            {/* Particules autour du texte */}
+            {/* Particules autour du texte (rayon réduit) */}
             {[...Array(8)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute text-2xl"
+                className="absolute text-lg"
                 style={{
                   left: '50%',
                   top: '50%',
                 }}
                 animate={{
-                  x: [0, Math.cos(i * Math.PI / 4) * 100],
-                  y: [0, Math.sin(i * Math.PI / 4) * 100],
+                  x: [0, Math.cos(i * Math.PI / 4) * 40],
+                  y: [0, Math.sin(i * Math.PI / 4) * 40],
                   opacity: [1, 0],
-                  scale: [0, 1.5],
+                  scale: [0, 1],
                 }}
                 transition={{
                   duration: 2,
