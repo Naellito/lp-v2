@@ -1,0 +1,27 @@
+services:
+  # Backend Node.js + Socket.io
+  - type: web
+    name: loup-garou-server
+    env: node
+    region: frankfurt
+    plan: free
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+
+  # Frontend React
+  - type: web
+    name: loup-garou-client
+    env: node
+    region: frankfurt
+    plan: free
+    buildCommand: cd client && npm install && npm run build
+    startCommand: cd client && npm run preview -- --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: NODE_ENV
+        value: production
