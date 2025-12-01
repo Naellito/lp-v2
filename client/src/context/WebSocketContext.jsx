@@ -4,20 +4,21 @@ import { io } from 'socket.io-client';
 
 const WebSocketContext = createContext(null);
 
-// En production, utilise la même URL (backend sert le frontend)
-// En dev, utilise localhost:3001
-const SERVER_URL = import.meta.env.VITE_SERVER_URL || 
-                   (import.meta.env.PROD ? window.location.origin : 'http://localhost:3001');
-
 export function WebSocketProvider({ children }) {
   const [socket, setSocket] = useState(null);
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
+    // Détermine l'URL du serveur au runtime (pas au build)
+    const SERVER_URL = import.meta.env.VITE_SERVER_URL || 
+                       (import.meta.env.PROD ? window.location.origin : 'http://localhost:3001');
+    
+    console.log('🔌 Tentative de connexion WebSocket à:', SERVER_URL);
+    
     const newSocket = io(SERVER_URL, {
-      transports: ['websocket'],
+      transports: ['websocket', 'polling'],
       reconnection: true,
-      reconnectionAttempts: 5,
+      reconnectionAttempts: 10,
       reconnectionDelay: 1000,
     });
 
