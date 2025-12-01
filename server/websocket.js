@@ -482,21 +482,20 @@ export function initializeWebSocket(server) {
           phase: game?.phase || 'lobby',
         };
 
-        // Si c'est le chat des loups, obtenir l'emoji du rôle
+        // Obtenir l'emoji selon le type de chat et le rôle
         if (game) {
           const gamePlayer = game.players.find(p => p.id === player.id);
-          if (gamePlayer?.role === 'loup-garou') {
+          
+          if (chatType === 'werewolf' && gamePlayer?.role === 'loup-garou') {
+            // Dans le chat des loups, les loups ont leur emoji
             chatMessage.playerEmoji = '🐺';
-          } else if (gamePlayer?.role) {
-            const emojis = {
-              'voyante': '🔮',
-              'sorciere': '🧪',
-              'cupidon': '💘',
-              'chasseur': '🎯',
-              'villageois': '👤',
-            };
-            chatMessage.playerEmoji = emojis[gamePlayer.role] || '👤';
+          } else if (chatType === 'general') {
+            // Dans le chat général, tout le monde a l'emoji villageois (pour cacher les rôles)
+            chatMessage.playerEmoji = '👤';
           }
+        } else {
+          // Avant le démarrage du jeu (lobby)
+          chatMessage.playerEmoji = '👤';
         }
 
         // Envoyer le message aux bonnes personnes
