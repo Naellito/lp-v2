@@ -180,26 +180,48 @@ export function Home() {
             ))}
           </motion.div>
           
-          {/* Message Easter egg avec pique subtile */}
+          {/* Big up à Sabri - Le GOAT des dictateurs */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: [0.6, 1, 0.6] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="text-sm text-gray-500 italic mt-4"
+            className="text-base text-gray-400 italic mt-4"
           >
-            <span className="line-through opacity-50">Big up à la dictatrice</span>{' '}
+            Big up à{' '}
             <motion.span
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 3 }}
+              animate={{ 
+                color: ['#facc15', '#f59e0b', '#fbbf24', '#facc15'],
+                textShadow: [
+                  '0 0 10px rgba(250,204,21,0.6)',
+                  '0 0 20px rgba(250,204,21,1)',
+                  '0 0 10px rgba(250,204,21,0.6)',
+                ]
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="font-black text-xl"
+            >
+              Sabri
+            </motion.span>
+            {' '}
+            <motion.span
+              animate={{ rotate: [0, 15, -15, 0], scale: [1, 1.2, 1] }}
+              transition={{ duration: 1, repeat: Infinity, repeatDelay: 2 }}
+              className="inline-block"
+            >
+              �
+            </motion.span>
+            {' '}c'est le GOAT des dictateurs{' '}
+            <motion.span
+              animate={{ rotate: [0, 360] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
               className="inline-block"
             >
               👑
             </motion.span>
-            {' '}qui se croit le centre du monde
           </motion.p>
           
           <p className="text-xs text-gray-600 mt-2">
-            tsais, le mec il cherche un moyen de mettre des piques en mode easter eggs 😏
+            Fasciné par son pouvoir absolu �✨
           </p>
         </motion.div>
       </motion.div>
