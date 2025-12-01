@@ -2,7 +2,12 @@
 import express from 'express';
 import { createServer } from 'http';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { initializeWebSocket } from './websocket.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const server = createServer(app);
@@ -16,17 +21,26 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Routes de santé
-app.get('/health', (req, res) => {
+// Servir les fichiers statiques du frontend en production
+if (process.env.NODE_ENV === 'production') {
+  const clientPath = path.join(__dirname, '../client/dist');
+  app.use(express.static(clientPath));
+  
+  console.log('📂 Serving static files from:', clientPath);
+}
+
+// Routes API
+app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Serveur Loup-Garou en ligne',
-    version: '1.0.0',
+// Route catch-all pour le frontend (doit être APRÈS les routes API)
+if (process.env.NODE_ENV === 'production') {
+  app.get('*', (req, res) => {
+    const clientPath = path.join(__dirname, '../client/dist');
+    res.sendFile(path.join(clientPath, 'index.html'));
   });
-});
+}
 
 // Initialiser WebSocket
 const io = initializeWebSocket(server);

@@ -4,7 +4,10 @@ import { io } from 'socket.io-client';
 
 const WebSocketContext = createContext(null);
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3001';
+// En production, utilise la même URL (backend sert le frontend)
+// En dev, utilise localhost:3001
+const SERVER_URL = import.meta.env.VITE_SERVER_URL || 
+                   (import.meta.env.PROD ? window.location.origin : 'http://localhost:3001');
 
 export function WebSocketProvider({ children }) {
   const [socket, setSocket] = useState(null);

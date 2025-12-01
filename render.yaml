@@ -1,27 +1,15 @@
 services:
-  # Backend Node.js + Socket.io
+  # Backend + Frontend combinés (gratuit)
   - type: web
-    name: loup-garou-server
+    name: loup-garou-game
     env: node
     region: frankfurt
     plan: free
-    buildCommand: cd server && npm install
+    buildCommand: |
+      cd client && npm install && npm run build
+      cd ../server && npm install
     startCommand: cd server && npm start
-    healthCheckPath: /health
-    envVars:
-      - key: NODE_ENV
-        value: production
-      - key: PORT
-        value: 3001
-
-  # Frontend React
-  - type: web
-    name: loup-garou-client
-    env: node
-    region: frankfurt
-    plan: free
-    buildCommand: cd client && npm install && npm run build
-    startCommand: cd client && npm run preview -- --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
         value: production
